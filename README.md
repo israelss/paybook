@@ -32,6 +32,11 @@ Desenvolvi uma tela responsiva na nuvem (ver [deploy]()) com as seguintes funcio
   - [x] quando o cliente deve pagar
 - [x] Total a receber dentro de um determinado período
 
+Além dos itens requeridos, incluí as seguintes funcionalidades:
+- [x] Total a receber de todos os clientes
+- [x] Listagem de dívidas por cliente
+- [x] Detalhamento da dívida de cada cliente
+
 ## 🧰 Tecnologias e ferramentas
 
 Para este projeto foram utilizados:
@@ -148,3 +153,34 @@ yarn start
 # ou
 npx next start
 ```
+
+# ⏭️ Próximos passos
+
+Com mais tempo eu teria implementado as seguintes funcionalidades, e é o que pretendo fazer em breve:
+
+- [ ] Testes:
+  - [ ] unitários (utilizando [Jest](https://jestjs.io/) ou [Vitest](https://vitest.dev/))
+  - [ ] e2e (utilizando [Playwright](https://playwright.dev/))
+- [ ] Inserção de um valor total a ser divido, e o número de parcelas, sendo criadas automaticamente as entradas por cliente.
+- [ ] Filtragem de clientes:
+  - [ ] buscando pelo nome
+  - [ ] buscando pela data da dívida a vencer
+  - [ ] buscando pelo valor total a ser pago
+- [ ] Ordenação de clientes:
+  - [ ] pelo nome (A-Z | Z-A)
+  - [ ] pela data da dívida a vencer (próxima | distante)
+  - [ ] pelo valor total a ser pago (maior | menor)
+- [ ] Filtragem de dívidas (no detalhamento):
+  - [ ] buscando pela data da dívida a vencer
+  - [ ] buscando pela data de pagamento (apenas dívidas já pagas)
+  - [ ] buscando pelo status (pago | em aberto)
+- [ ] Ordenação de dívidas (no detalhamento):
+  - [ ] por data da dívida a vencer (próxima | distante)
+  - [ ] por data de pagamento (próxima -> pagas primeiro | distante -> em aberto primeiro)
+  - [ ] por status (pago | em aberto)
+
+
+Questões estéticas:
+- [ ] Um ícone para o site/app
+- [ ] Cores melhores
+- [ ] Atualmente não é possível realizar o scroll das seções, com o método `scrollIntoView`, simultâneamente e de forma suave quando, utilizando o Chrome (ou qualquer navegador que utilize o Chromium como base). Isso é um bug do Chromium, mas existem alternativas, como o método `scrollTo`, porém é necessário mais tempo para implementar essa solução.

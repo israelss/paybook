@@ -1,6 +1,8 @@
+import endOfDay from 'date-fns/endOfDay'
 import isAfter from 'date-fns/isAfter'
 import isWithinInterval from 'date-fns/isWithinInterval'
 import lightFormat from 'date-fns/lightFormat'
+import startOfDay from 'date-fns/startOfDay'
 import type { SerializedDebtDateAndValue } from './types'
 
 const debtsValuesReducer = (sum: number, current: number): number => sum + current
@@ -14,7 +16,7 @@ export const isDebtInRange = (
   if (isAfter(start, end)) end = start
   return isWithinInterval(
     new Date(targetDate),
-    { start: start, end: end }
+    { start: startOfDay(start), end: endOfDay(end) }
   )
 }
 

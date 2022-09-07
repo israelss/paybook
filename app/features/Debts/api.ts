@@ -2,12 +2,13 @@ import { ClientsApi } from '../Clients'
 import { db } from '~/utils/db.server'
 import { extractFromCurrency } from '~/utils'
 import type { AllDebtsWithoutClientID, DebtDateAndValue, NewDebtData } from './types'
+import endOfDay from 'date-fns/endOfDay'
 
 export const add = async (newdebtData: NewDebtData): Promise<void> => {
   await db.debt.create({
     data: {
       value: extractFromCurrency(newdebtData.debtValue),
-      dueDate: newdebtData.dueDate,
+      dueDate: endOfDay(newdebtData.dueDate),
       client: {
         connectOrCreate: {
           create: {

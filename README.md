@@ -2,8 +2,7 @@
 
 Esta é a minha solução para o teste técnico proposto para o processo seletivo da Softeo Tecnologia
 
-<!-- TODO: add live url -->
-Live Preview: [Heroku]()
+Live Preview: [Heroku](https://paybook-softeo.herokuapp.com/)
 
 # 🧠 Contexto
 
@@ -24,8 +23,7 @@ _ℹ️ Observação ℹ️:_
 
 _Na minha solução, utilizei a nomenclatura **cliente**, em vez de **paciente**, por ser um termo mais genérico, possibilitando que a ferramenta possa ser utilizada não só por Érica, mas por todos que tenham a mesma necessidade que ela._
 
-<!-- TODO: add live url -->
-Desenvolvi uma tela responsiva na nuvem (ver [deploy]()) com as seguintes funcionalidades:
+Desenvolvi uma tela responsiva na nuvem (ver [deploy](https://paybook-softeo.herokuapp.com/)) com as seguintes funcionalidades:
 - [x] Inserção de novos registros, com:
   - [x] nome do cliente
   - [x] quanto o cliente deve pagar
@@ -69,9 +67,8 @@ Para este projeto foram utilizados:
 
 Clone o projeto:
 
-<!-- TODO: include git url -->
 ```bash
-git clone
+git clone git@github.com:israelss/paybook.git
 ```
 
 Após clonar o projeto, instale as dependências:

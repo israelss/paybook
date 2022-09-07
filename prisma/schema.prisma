@@ -1,0 +1,24 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  shadowDatabaseUrl = env("HEROKU_POSTGRESQL_COPPER_URL")
+}
+
+model Client {
+  id    String @id @default(uuid())
+  name  String @unique
+  debts Debt[]
+}
+
+model Debt {
+  id          String    @id @default(uuid())
+  value       Int
+  dueDate     DateTime
+  paymentDate DateTime?
+  client      Client   @relation(fields: [clientId], references: [id])
+  clientId    String
+}

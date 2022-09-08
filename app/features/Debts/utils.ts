@@ -14,7 +14,7 @@ const debtsValuesReducer = (sum: number, current: number): number => sum + curre
 
 export const findInstallmentDate = (baseDate: Date, monthsToAdd: number): Date => {
   let date = endOfDay(addMonths(baseDate, monthsToAdd))
-  if (isWeekend(date)) date = addDays(date, 1)
+  while (isWeekend(date)) date = addDays(date, 1)
   return date
 }
 

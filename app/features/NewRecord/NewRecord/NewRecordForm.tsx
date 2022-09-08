@@ -1,7 +1,7 @@
 import { Form } from 'remix-forms'
 import { inputClasses, labelClasses, setCaretAtEnd } from '../utils'
 import { newRecordSchema } from '../schemas'
-import { normalizeValue } from '~/utils'
+import { clampMax, normalizeValue } from '~/utils'
 import { useState } from 'react'
 import endOfToday from 'date-fns/endOfToday'
 import formatISO from 'date-fns/formatISO'
@@ -12,6 +12,7 @@ const today = endOfToday()
 const NewRecordForm = (): JSX.Element => {
   const [debtValue, setDebtValue] = useState<string>('')
   const [dueDate, setDueDate] = useState<Date>(today)
+  const [installments, setInstallments] = useState<number>(1)
 
   return (
     <Form
@@ -110,6 +111,40 @@ const NewRecordForm = (): JSX.Element => {
               }}
             </Field>
           </div>
+          <Field
+            name='installments'
+            label='Dividir em'
+            className='flex-row justify-center form-control'
+            type='number'
+          >
+            {({ label, Errors, Input, errors }) => {
+              return (
+                <>
+                  <label className='label'>
+                    <span className={`${labelClasses(errors)} text-info`}>
+                      {label}
+                    </span>
+                  </label>
+                  <Input
+                    {...register('installments')}
+                    className={`${inputClasses(errors, 'text-center')} max-w-[6ch] mx-2 flex-shrink`}
+                    min={1}
+                    onInput={({ currentTarget }) => {
+                      setInstallments(clampMax(Number.parseInt(currentTarget.value), 999))
+                    }}
+                    value={installments}
+                    defaultValue={undefined}
+                  />
+                  <label className='label'>
+                    <span className={`${labelClasses(errors)} text-info`}>
+                      parcelas
+                    </span>
+                  </label>
+                  <Errors className='px-1 mt-1 text-xs text-error' />
+                </>
+              )
+            }}
+          </Field>
           <Errors className='px-1 mt-1 text-xs text-error' />
           <Button className='btn btn-sm btn-success'>
             Incluir registro

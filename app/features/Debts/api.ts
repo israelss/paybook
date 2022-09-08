@@ -1,25 +1,11 @@
 import { ClientsApi } from '../Clients'
 import { db } from '~/utils/db.server'
-import { extractFromCurrency } from '~/utils'
-import type { AllDebtsWithoutClientID, DebtDateAndValue, NewDebtData } from './types'
-import endOfDay from 'date-fns/endOfDay'
+import type { AllDebtsWithoutClientID, DebtDateAndValue } from './types'
+import type { Prisma } from '@prisma/client'
 
-export const add = async (newdebtData: NewDebtData): Promise<void> => {
-  await db.debt.create({
-    data: {
-      value: extractFromCurrency(newdebtData.debtValue),
-      dueDate: endOfDay(newdebtData.dueDate),
-      client: {
-        connectOrCreate: {
-          create: {
-            name: newdebtData.clientName
-          },
-          where: {
-            name: newdebtData.clientName
-          }
-        }
-      }
-    }
+export const add = async (installmentsData: Prisma.Enumerable<Prisma.DebtCreateManyInput>): Promise<void> => {
+  await db.debt.createMany({
+    data: installmentsData
   })
 }
 

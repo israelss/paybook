@@ -7,6 +7,15 @@ export const newRecordSchema = z.object({
       required_error: 'A data deve ser selecionada... ⚠️',
       invalid_type_error: 'A data deve ser uma data válida... ❌'
     }),
+  installments: z
+    .number({
+      required_error: 'O número de parcelas deve ser definido... ⚠️',
+      invalid_type_error: 'O número de parcelas deve ser um número... ❌'
+    })
+    .min(1, {
+      message: 'O número de parcelas deve ser pelo menos 1 👀'
+    })
+    .default(1),
   clientName: z
     .string({
       required_error: 'O nome do cliente deve ser preenchido... ⚠️',

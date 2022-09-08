@@ -1,7 +1,6 @@
 import { db } from '~/utils/db.server'
 import { sortClientsByDebts } from './utils'
 import type { AllClients } from './types'
-import invariant from 'tiny-invariant'
 
 export const getAll = async (): Promise<AllClients> => {
   const clients = await db.client.findMany({
@@ -27,8 +26,6 @@ export const getClientIdByName = async (name: string): Promise<string> => {
     update: {},
     create: { name }
   })
-
-  invariant(client, 'Client not found!')
 
   return client.id
 }

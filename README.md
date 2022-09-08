@@ -24,16 +24,16 @@ _ℹ️ Observação ℹ️:_
 _Na minha solução, utilizei a nomenclatura **cliente**, em vez de **paciente**, por ser um termo mais genérico, possibilitando que a ferramenta possa ser utilizada não só por Érica, mas por todos que tenham a mesma necessidade que ela._
 
 Desenvolvi uma tela responsiva na nuvem (ver [deploy](https://paybook-softeo.herokuapp.com/)) com as seguintes funcionalidades:
-- [X] Inserção de novos registros, com:
-  - [X] nome do cliente
-  - [X] quanto o cliente deve pagar
-  - [X] quando o cliente deve pagar
+- [X] Inserção de um valor total a ser divido, e o número de parcelas, sendo criadas automaticamente as entradas por cliente, com:
+  - [X] Nome do cliente
+    - [X] Se o cliente não existir na base de dados será criado
+  - [X] Quanto o cliente deve pagar
+    - [X] Se a divisão do valor total pelas parcelas não for exata, o valor restante será atribuído à última parcela
+  - [X] Quando o cliente deve pagar
+    - [X] Se a data da parcela cair em um final de semana, a parcela é criada com a data sendo a próxima segunda-feira
 - [X] Total a receber dentro de um determinado período
 
 Além dos itens requeridos, incluí as seguintes funcionalidades:
-- [X] Inserção de um valor total a ser divido, e o número de parcelas, sendo criadas automaticamente as entradas por cliente.
-  - [X] Se a data da parcela cair em um final de semana, a parcela é criada com a data sendo a próxima segunda-feira
-  - [X] Se a divisão do valor total pelas parcelas não for exata, o valor restante será atribuído à última parcela
 - [X] Total a receber de todos os clientes
 - [X] Listagem de dívidas por cliente
 - [X] Detalhamento da dívida de cada cliente

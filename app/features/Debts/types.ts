@@ -22,9 +22,3 @@ export interface DebtDateAndValue extends Pick<Debt, 'dueDate' |'value'> {}
 export interface SerializedDebtDateAndValue extends SerializeFrom<DebtDateAndValue> {}
 
 export interface SerializedDebt extends SerializeFrom<DebtWithoutClientID> {}
-
-export interface NewDebtData {
-  clientName: string
-  debtValue: string
-  dueDate: Date
-}

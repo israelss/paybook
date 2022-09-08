@@ -7,7 +7,9 @@ export const formatAsCurrency = (value: number): string =>
   currencyFormatter.format(value / 100)
 
 export const normalizeValue = (value: string): string => {
-  const extractedValue = Math.min(99999999, extractFromCurrency(value))
+  const extractedValue = clampMax(extractFromCurrency(value), 99999999)
   const normalizedValue = formatAsCurrency(extractedValue)
   return normalizedValue
 }
+
+export const clampMax = (value: number, max: number): number => Math.min(max, value)

@@ -12,11 +12,11 @@ Live Preview: [Heroku](https://paybook-softeo.herokuapp.com/)
 - Para saber quanto vai receber num determinado período, Érica precisa somar cada valor na calculadora.
 
 O desafio foi implementar uma tela na nuvem com as seguintes funcionalidades:
-- [x] Inserção de novos registros, com:
-  - [x] nome do paciente
-  - [x] quanto o paciente deve pagar
-  - [x] quando o paciente deve pagar
-- [x] Total a receber dentro de um determinado período
+- [X] Inserção de novos registros, com:
+  - [X] nome do paciente
+  - [X] quanto o paciente deve pagar
+  - [X] quando o paciente deve pagar
+- [X] Total a receber dentro de um determinado período
 
 ## 💡 O que foi entregue
 _ℹ️ Observação ℹ️:_
@@ -24,16 +24,19 @@ _ℹ️ Observação ℹ️:_
 _Na minha solução, utilizei a nomenclatura **cliente**, em vez de **paciente**, por ser um termo mais genérico, possibilitando que a ferramenta possa ser utilizada não só por Érica, mas por todos que tenham a mesma necessidade que ela._
 
 Desenvolvi uma tela responsiva na nuvem (ver [deploy](https://paybook-softeo.herokuapp.com/)) com as seguintes funcionalidades:
-- [x] Inserção de novos registros, com:
-  - [x] nome do cliente
-  - [x] quanto o cliente deve pagar
-  - [x] quando o cliente deve pagar
-- [x] Total a receber dentro de um determinado período
+- [X] Inserção de novos registros, com:
+  - [X] nome do cliente
+  - [X] quanto o cliente deve pagar
+  - [X] quando o cliente deve pagar
+- [X] Total a receber dentro de um determinado período
 
 Além dos itens requeridos, incluí as seguintes funcionalidades:
-- [x] Total a receber de todos os clientes
-- [x] Listagem de dívidas por cliente
-- [x] Detalhamento da dívida de cada cliente
+- [X] Inserção de um valor total a ser divido, e o número de parcelas, sendo criadas automaticamente as entradas por cliente.
+  - [X] Se a data da parcela cair em um final de semana, a parcela é criada com a data sendo a próxima segunda-feira
+  - [X] Se a divisão do valor total pelas parcelas não for exata, o valor restante será atribuído à última parcela
+- [X] Total a receber de todos os clientes
+- [X] Listagem de dívidas por cliente
+- [X] Detalhamento da dívida de cada cliente
 
 ## 🧰 Tecnologias e ferramentas
 
@@ -158,7 +161,6 @@ Com mais tempo eu teria implementado as seguintes funcionalidades, e é o que pr
 - [ ] Testes:
   - [ ] unitários (utilizando [Jest](https://jestjs.io/) ou [Vitest](https://vitest.dev/))
   - [ ] e2e (utilizando [Playwright](https://playwright.dev/))
-- [ ] Inserção de um valor total a ser divido, e o número de parcelas, sendo criadas automaticamente as entradas por cliente.
 - [ ] Filtragem de clientes:
   - [ ] buscando pelo nome
   - [ ] buscando pela data da dívida a vencer

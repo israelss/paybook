@@ -9,7 +9,9 @@ const ResponsiveLayout = ({ children }: PropsWithChildren): JSX.Element => {
   const isMobile = useMobileQuery()
   const matches = useMatches()
 
-  const isSummaryPath = matches.at(-1)?.pathname.endsWith('/summary') ?? true
+  const lastMatch = matches[matches.length - 1]
+
+  const isSummaryPath = lastMatch.pathname.endsWith('/summary') ?? true
 
   useEffect(() => {
     if (isMobile === false && isSummaryPath) window.location.replace('summary/clients')

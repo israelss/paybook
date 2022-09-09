@@ -24,7 +24,7 @@ export const newRecordSchema = z.object({
     .min(1, {
       message: 'O nome do cliente deve ter pelo menos 1 letra 👀'
     }),
-  debtValue: z
+  installmentValue: z
     .string({
       required_error: 'O valor deve ser preenchido... ⚠️'
     })

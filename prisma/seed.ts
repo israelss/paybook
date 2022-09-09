@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker'
 import { PrismaClient } from '@prisma/client'
-import type { Debt } from '@prisma/client'
+import type { Installment } from '@prisma/client'
 
 const db = new PrismaClient()
 
@@ -12,18 +12,18 @@ async function seed (): Promise<void> {
   clients.map(async (name) => {
     const client = await db.client.create({ data: { name } })
 
-    const NUMBER_OF_DEBTS_PER_CLIENT = faker.mersenne.rand(10, 5)
+    const NUMBER_OF_INSTALLMENTS_PER_CLIENT = faker.mersenne.rand(10, 5)
 
-    const debts = faker.helpers.uniqueArray<Omit<Debt, 'id'>>(() => ({
+    const installments = faker.helpers.uniqueArray<Omit<Installment, 'id'>>(() => ({
       value: faker.mersenne.rand(50000, 10000),
       dueDate: faker.date.future(2),
       clientId: client.id,
       paymentDate: faker.datatype.boolean() ? faker.date.soon() : null
-    }), NUMBER_OF_DEBTS_PER_CLIENT)
+    }), NUMBER_OF_INSTALLMENTS_PER_CLIENT)
 
-    for (const debt of debts) {
-      await db.debt.create({
-        data: debt
+    for (const installment of installments) {
+      await db.installment.create({
+        data: installment
       })
     }
   })

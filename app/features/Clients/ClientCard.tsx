@@ -1,4 +1,4 @@
-import { DebtsUtils } from '../Debts'
+import { InstallmentsUtils } from '../Installments'
 import { Divider, MonetaryValueDisplay } from '~/components'
 import { memo } from 'react'
 import { NavLink, useParams } from '@remix-run/react'
@@ -7,8 +7,8 @@ import type { ClientCardProps } from './types'
 const ClientCard = ({ client }: ClientCardProps): JSX.Element => {
   const { id } = useParams()
 
-  const clientTotalDebt = DebtsUtils.sumDebtsValues(
-    client.debts.filter(debt => debt.paymentDate === null)
+  const clientTotalInstallment = InstallmentsUtils.sumInstallmentsValues(
+    client.installments.filter(installment => installment.paymentDate === null)
   )
 
   const clientSelected = client.id === id
@@ -25,7 +25,7 @@ const ClientCard = ({ client }: ClientCardProps): JSX.Element => {
           <span className={`text-sm ${clientSelected ? 'text-info' : 'text-neutral-content'}`}>
             Total
           </span>
-          <MonetaryValueDisplay value={clientTotalDebt} />
+          <MonetaryValueDisplay value={clientTotalInstallment} />
         </div>
         <Divider />
         <div className={`text-xs ${clientSelected ? 'text-warning' : 'text-info'}`}>

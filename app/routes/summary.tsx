@@ -1,4 +1,4 @@
-import { DebtsApi } from '~/features/Debts'
+import { InstallmentsApi } from '~/features/Installments'
 import { Divider, Loader, ScrollableContainer } from '~/components'
 import { json } from '@remix-run/node'
 import { memo } from 'react'
@@ -16,7 +16,7 @@ export const links: LinksFunction = () => {
 }
 
 export const loader: LoaderFunction = async () => {
-  return json(await DebtsApi.getDebtsDatesAndValues())
+  return json(await InstallmentsApi.getInstallmentsDatesAndValues())
 }
 
 export const action: ActionFunction = async ({ request }) => {

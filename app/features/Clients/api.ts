@@ -1,11 +1,11 @@
 import { db } from '~/utils/db.server'
-import { sortClientsByDebts } from './utils'
+import { sortClientsByInstallments } from './utils'
 import type { AllClients } from './types'
 
 export const getAll = async (): Promise<AllClients> => {
   const clients = await db.client.findMany({
     include: {
-      debts: {
+      installments: {
         orderBy: [
           { dueDate: 'asc' },
           { value: 'desc' }
@@ -14,7 +14,7 @@ export const getAll = async (): Promise<AllClients> => {
     }
   })
 
-  clients.sort(sortClientsByDebts)
+  clients.sort(sortClientsByInstallments)
 
   return { clients }
 }

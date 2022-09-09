@@ -1,16 +1,16 @@
 import { ClientsApi } from '../Clients'
 import { db } from '~/utils/db.server'
-import type { AllDebtsWithoutClientID, DebtDateAndValue } from './types'
+import type { AllInstallmentsWithoutClientID, InstallmentDateAndValue } from './types'
 import type { Prisma } from '@prisma/client'
 
-export const add = async (installmentsData: Prisma.Enumerable<Prisma.DebtCreateManyInput>): Promise<void> => {
-  await db.debt.createMany({
+export const add = async (installmentsData: Prisma.Enumerable<Prisma.InstallmentCreateManyInput>): Promise<void> => {
+  await db.installment.createMany({
     data: installmentsData
   })
 }
 
-export const getDebtsDatesAndValues = async (): Promise<DebtDateAndValue[]> => {
-  const data = await db.debt.findMany({
+export const getInstallmentsDatesAndValues = async (): Promise<InstallmentDateAndValue[]> => {
+  const data = await db.installment.findMany({
     where: {
       AND: [
         {
@@ -27,8 +27,8 @@ export const getDebtsDatesAndValues = async (): Promise<DebtDateAndValue[]> => {
   return data
 }
 
-export const getByClient = async (id: string): Promise<AllDebtsWithoutClientID> => {
-  const debts = await db.debt.findMany({
+export const getByClient = async (id: string): Promise<AllInstallmentsWithoutClientID> => {
+  const installments = await db.installment.findMany({
     where: {
       clientId: id
     },
@@ -44,32 +44,32 @@ export const getByClient = async (id: string): Promise<AllDebtsWithoutClientID> 
     ]
   })
 
-  return { debts }
+  return { installments }
 }
 
 export const markAsPaid = async (id: string): Promise<void> => {
-  await db.debt.update({
+  await db.installment.update({
     where: { id },
     data: { paymentDate: new Date() }
   })
 }
 
 export const remove = async (id: string): Promise<boolean> => {
-  const { client } = await db.debt.delete({
+  const { client } = await db.installment.delete({
     where: { id },
     select: {
       client: {
-        select: { id: true, debts: true }
+        select: { id: true, installments: true }
       }
     }
   })
 
-  const remainingClientDebtsLength = client
-    .debts
-    .filter(debt => debt.id !== id)
+  const remainingClientInstallmentsLength = client
+    .installments
+    .filter(installment => installment.id !== id)
     .length
 
-  if (remainingClientDebtsLength === 0) {
+  if (remainingClientInstallmentsLength === 0) {
     await ClientsApi.remove(client.id)
     return true
   }

@@ -11,10 +11,10 @@ datasource db {
 model Client {
   id    String @id @default(uuid())
   name  String @unique
-  debts Debt[]
+  installments Installment[]
 }
 
-model Debt {
+model Installment {
   id          String    @id @default(uuid())
   value       Int
   dueDate     DateTime

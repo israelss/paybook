@@ -1,12 +1,12 @@
 import { formatAsCurrency } from '~/utils'
 import { formatDate } from '../utils'
 
-export interface DebtCardHeaderProps {
+export interface InstallmentCardHeaderProps {
   date: string
   value: number
 }
 
-const DebtCardHeader = ({ date, value }: DebtCardHeaderProps): JSX.Element => {
+const InstallmentCardHeader = ({ date, value }: InstallmentCardHeaderProps): JSX.Element => {
   return (
     <div className='flex justify-between w-full'>
       <div>
@@ -19,4 +19,4 @@ const DebtCardHeader = ({ date, value }: DebtCardHeaderProps): JSX.Element => {
   )
 }
 
-export default DebtCardHeader
+export default InstallmentCardHeader

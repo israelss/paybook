@@ -2,15 +2,15 @@ import type { Prisma } from '@prisma/client'
 import type { SerializeFrom } from '@remix-run/node'
 
 export interface AllClients {
-  clients: ClientWithDebts[]
+  clients: ClientWithInstallments[]
 }
 
 export interface ClientCardProps {
-  client: SerializeFrom<ClientWithDebts>
+  client: SerializeFrom<ClientWithInstallments>
 }
 
-export type ClientWithDebts = Prisma.ClientGetPayload<{
+export type ClientWithInstallments = Prisma.ClientGetPayload<{
   include: {
-    debts: true
+    installments: true
   }
 }>

@@ -1,4 +1,4 @@
-import { DebtsActions, DebtsApi, DebtCard } from '~/features/Debts'
+import { InstallmentsActions, InstallmentsApi, InstallmentCard } from '~/features/Installments'
 import { json } from '@remix-run/node'
 import { memo, useEffect } from 'react'
 import { scroll } from '~/utils'
@@ -7,23 +7,23 @@ import { useLoaderData, useParams, useTransition } from '@remix-run/react'
 import { useMobileQuery } from '~/hooks/useMobileQuery'
 import invariant from 'tiny-invariant'
 import type { ActionFunction, LoaderFunction } from '@remix-run/node'
-import type { DebtsTypes } from '~/features/Debts'
+import type { InstallmentsTypes } from '~/features/Installments'
 
 export const loader: LoaderFunction = async ({ params }) => {
   const { id } = params
 
   invariant(id, 'Please provide a valid uuid client id')
 
-  return json(await DebtsApi.getByClient(id))
+  return json(await InstallmentsApi.getByClient(id))
 }
 
-export const action: ActionFunction = async ({ request }) => await DebtsActions.processRequest(request)
+export const action: ActionFunction = async ({ request }) => await InstallmentsActions.processRequest(request)
 
 const SelectedClientRoute = (): JSX.Element => {
   const { id } = useParams()
   invariant(id, 'Please provide a valid uuid client id')
 
-  const { debts } = useLoaderData<DebtsTypes.AllDebtsWithoutClientID>()
+  const { installments } = useLoaderData<InstallmentsTypes.AllInstallmentsWithoutClientID>()
   const transition = useTransition()
   const isMobile = useMobileQuery()
 
@@ -33,7 +33,7 @@ const SelectedClientRoute = (): JSX.Element => {
     }
   }, [id, isMobile, transition.state])
 
-  if (debts.length === 0) {
+  if (installments.length === 0) {
     return (
       <div className='flex flex-col items-start justify-center text-center'>
         <h2 className='mt-2 text-3xl'>Sem pagamentos pendentes</h2>
@@ -45,9 +45,9 @@ const SelectedClientRoute = (): JSX.Element => {
     <ScrollableContainer>
       <ul className='w-full' id={`details-${id}`}>
         {
-          debts.map(debt => (
-            <li key={debt.id} className='mt-2'>
-              <DebtCard debt={debt} />
+          installments.map(installment => (
+            <li key={installment.id} className='mt-2'>
+              <InstallmentCard installment={installment} />
             </li>
           ))
         }

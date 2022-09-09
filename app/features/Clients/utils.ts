@@ -1,11 +1,11 @@
 import compareAsc from 'date-fns/compareAsc'
-import type { ClientWithDebts } from './types'
+import type { ClientWithInstallments } from './types'
 
-export const sortClientsByDebts = (
-  clientA: ClientWithDebts,
-  clientB: ClientWithDebts
+export const sortClientsByInstallments = (
+  clientA: ClientWithInstallments,
+  clientB: ClientWithInstallments
 ): number =>
   compareAsc(
-    clientA.debts[0]?.dueDate ?? 0,
-    clientB.debts[0]?.dueDate ?? 0
+    clientA.installments[0]?.dueDate ?? 0,
+    clientB.installments[0]?.dueDate ?? 0
   )

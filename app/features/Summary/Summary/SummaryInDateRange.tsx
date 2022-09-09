@@ -1,6 +1,6 @@
 import { CalendarIcon } from '@heroicons/react/24/outline'
 import { createRef, memo, useState } from 'react'
-import { DebtsUtils } from '~/features/Debts'
+import { InstallmentsUtils } from '~/features/Installments'
 import { MonetaryValueDisplay } from '~/components'
 import endOfToday from 'date-fns/endOfToday'
 import ReactDatePicker from 'react-datepicker'
@@ -16,8 +16,8 @@ const SummaryInDateRange = ({ data }: SummaryInDateRangeProps): JSX.Element => {
 
   const [startDate, endDate] = dateRange
 
-  const debtInDateRangeValue = DebtsUtils.sumDebtsValues(
-    data.filter((debt) => DebtsUtils.isDebtInRange(debt.dueDate, startDate, endDate))
+  const installmentInDateRangeValue = InstallmentsUtils.sumInstallmentsValues(
+    data.filter((installment) => InstallmentsUtils.isInstallmentInRange(installment.dueDate, startDate, endDate))
   )
 
   const handleCalendarClose = (): void => {
@@ -47,7 +47,7 @@ const SummaryInDateRange = ({ data }: SummaryInDateRangeProps): JSX.Element => {
         <CalendarIcon className='w-6 h-6 text-info' onClick={openDatePicker} />
       </div>
       <div className='w-1/2 mx-auto'>
-        <MonetaryValueDisplay value={debtInDateRangeValue} />
+        <MonetaryValueDisplay value={installmentInDateRangeValue} />
       </div>
     </div>
   )

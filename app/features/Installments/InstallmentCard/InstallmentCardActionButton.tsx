@@ -1,12 +1,12 @@
 import { useFetcher } from '@remix-run/react'
-import type { DebtCardActionButtonProps } from '../types'
+import type { InstallmentCardActionButtonProps } from '../types'
 
-const DebtCardActionButton = ({ action, children, className, valueToSend }: DebtCardActionButtonProps): JSX.Element => {
+const InstallmentCardActionButton = ({ action, children, className, valueToSend }: InstallmentCardActionButtonProps): JSX.Element => {
   const fetcher = useFetcher()
 
   return (
     <fetcher.Form method='post'>
-      <input name='debtId' type='hidden' value={valueToSend} />
+      <input name='installmentId' type='hidden' value={valueToSend} />
       <button
         className={`h-full py-1 text-xs ${className}`}
         name='_action'
@@ -19,4 +19,4 @@ const DebtCardActionButton = ({ action, children, className, valueToSend }: Debt
   )
 }
 
-export default DebtCardActionButton
+export default InstallmentCardActionButton

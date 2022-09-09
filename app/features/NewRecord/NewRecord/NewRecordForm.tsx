@@ -10,7 +10,7 @@ import ReactDatePicker from 'react-datepicker'
 const today = endOfToday()
 
 const NewRecordForm = (): JSX.Element => {
-  const [debtValue, setDebtValue] = useState<string>('')
+  const [installmentValue, setInstallmentValue] = useState<string>('')
   const [dueDate, setDueDate] = useState<Date>(today)
   const [installments, setInstallments] = useState<number>(1)
 
@@ -44,7 +44,7 @@ const NewRecordForm = (): JSX.Element => {
           </Field>
           <div className='grid grid-cols-2 gap-2'>
             <Field
-              name='debtValue'
+              name='installmentValue'
               label='Valor a ser pago'
               className='form-control'
               placeholder='R$ 0,00'
@@ -59,14 +59,14 @@ const NewRecordForm = (): JSX.Element => {
                       </span>
                     </label>
                     <input
-                      {...register('debtValue')}
+                      {...register('installmentValue')}
                       className={inputClasses(errors, 'text-end')}
                       onClick={setCaretAtEnd}
                       onFocus={setCaretAtEnd}
                       onInput={({ currentTarget }) => {
-                        setDebtValue(normalizeValue(currentTarget.value))
+                        setInstallmentValue(normalizeValue(currentTarget.value))
                       }}
-                      value={debtValue}
+                      value={installmentValue}
                     />
                     <Errors className='px-1 mt-1 text-xs text-error' />
                   </>
@@ -152,7 +152,7 @@ const NewRecordForm = (): JSX.Element => {
           <button
             className='btn btn-sm btn-warning btn-outline'
             onClick={() => {
-              setDebtValue('')
+              setInstallmentValue('')
               setDueDate(today)
               reset()
             }}

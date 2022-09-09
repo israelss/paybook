@@ -1,7 +1,7 @@
-import type { DebtsTypes } from '../Debts'
+import type { InstallmentsTypes } from '../Installments'
 
 export interface SummaryInDateRangeProps {
-  data: DebtsTypes.SerializedDebtDateAndValue[]
+  data: InstallmentsTypes.SerializedInstallmentDateAndValue[]
 }
 
 export interface SummaryTotalProps {

@@ -8,9 +8,9 @@ import isWithinInterval from 'date-fns/isWithinInterval'
 import lightFormat from 'date-fns/lightFormat'
 import startOfDay from 'date-fns/startOfDay'
 import type { Prisma } from '@prisma/client'
-import type { SerializedDebtDateAndValue } from './types'
+import type { SerializedInstallmentDateAndValue } from './types'
 
-const debtsValuesReducer = (sum: number, current: number): number => sum + current
+const installmentsValuesReducer = (sum: number, current: number): number => sum + current
 
 export const findInstallmentDate = (baseDate: Date, monthsToAdd: number): Date => {
   let date = endOfDay(addMonths(baseDate, monthsToAdd))
@@ -18,10 +18,10 @@ export const findInstallmentDate = (baseDate: Date, monthsToAdd: number): Date =
   return date
 }
 
-export const findInstallmentsValues = (totalValue: string, numberOfInstallments: number): number[] => {
-  const debtValue = extractFromCurrency(totalValue)
-  const installmentValue = Math.floor(debtValue / numberOfInstallments)
-  const remainderValue = debtValue - (installmentValue * numberOfInstallments)
+export const findInstallmentsValues = (value: string, numberOfInstallments: number): number[] => {
+  const totalValue = extractFromCurrency(value)
+  const installmentValue = Math.floor(totalValue / numberOfInstallments)
+  const remainderValue = totalValue - (installmentValue * numberOfInstallments)
   const lastInstallmentValue = installmentValue + remainderValue
 
   const installments: number[] = Array(numberOfInstallments)
@@ -37,7 +37,7 @@ export const formatDate = (date: string): string => {
   return lightFormat(new Date(date), 'dd/MM/yyyy')
 }
 
-export const isDebtInRange = (
+export const isInstallmentInRange = (
   targetDate: string,
   start: Date | null,
   end: Date | null
@@ -54,7 +54,7 @@ export const makeInstallmentsData = (
   baseDate: Date,
   clientId: string,
   installments: number[]
-): Prisma.Enumerable<Prisma.DebtCreateManyInput> => {
+): Prisma.Enumerable<Prisma.InstallmentCreateManyInput> => {
   return installments
     .map((installmentValue, installmentIndex) => ({
       value: installmentValue,
@@ -63,8 +63,8 @@ export const makeInstallmentsData = (
     }))
 }
 
-export const sumDebtsValues = (debts: SerializedDebtDateAndValue[]): number => {
-  return debts
-    .map(debt => debt.value)
-    .reduce(debtsValuesReducer, 0)
+export const sumInstallmentsValues = (installments: SerializedInstallmentDateAndValue[]): number => {
+  return installments
+    .map(installment => installment.value)
+    .reduce(installmentsValuesReducer, 0)
 }

@@ -6,6 +6,6 @@ export const sortClientsByInstallments = (
   clientB: ClientWithInstallments
 ): number =>
   compareAsc(
-    clientA.installments[0]?.dueDate ?? 0,
-    clientB.installments[0]?.dueDate ?? 0
+    clientA.installments[0].dueDate,
+    clientB.installments[0].dueDate
   )

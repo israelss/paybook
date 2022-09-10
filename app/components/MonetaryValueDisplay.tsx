@@ -1,5 +1,5 @@
 import { formatAsCurrency } from '~/utils'
-import { memo } from 'react'
+import React, { memo } from 'react'
 
 interface MonetaryValueDisplayProps {
   value: number

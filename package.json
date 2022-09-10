@@ -6,6 +6,8 @@
     "db:migrate": "npx prisma migrate dev",
     "db:seed": "npx prisma db seed",
     "lint:fix": "npx ts-standard --fix",
+    "test:unit": "npx vitest",
+    "test:unit:coverage": "npx vitest run --coverage",
     "build": "run-s \"build:*\"",
     "build:css": "npm run generate:css -- --minify",
     "build:remix": "remix build",
@@ -36,17 +38,22 @@
     "@faker-js/faker": "^7.5.0",
     "@remix-run/dev": "^1.7.0",
     "@remix-run/eslint-config": "^1.7.0",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
     "@types/react": "^18.0.15",
     "@types/react-datepicker": "^4.4.2",
     "@types/react-dom": "^18.0.6",
     "@typescript-eslint/experimental-utils": "^5.36.2",
+    "@vitest/coverage-c8": "^0.23.1",
     "esbuild-register": "^3.3.3",
     "eslint": "^8.20.0",
+    "happy-dom": "^6.0.4",
     "npm-run-all": "^4.1.5",
     "prisma": "^4.3.1",
     "tailwindcss": "^3.1.8",
     "ts-standard": "^11.0.0",
-    "typescript": "^4.7.4"
+    "typescript": "^4.7.4",
+    "vitest": "^0.23.1"
   },
   "engines": {
     "node": ">=14"

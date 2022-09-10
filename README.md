@@ -158,9 +158,8 @@ npx next start
 
 Com mais tempo eu teria implementado as seguintes funcionalidades, e é o que pretendo fazer em breve:
 
-- [ ] Testes:
-  - [ ] unitários (utilizando [Jest](https://jestjs.io/) ou [Vitest](https://vitest.dev/))
-  - [ ] e2e (utilizando [Playwright](https://playwright.dev/))
+- [ ] Mais testes unitários
+- [ ] Testes e2e (utilizando [Playwright](https://playwright.dev/))
 - [ ] Filtragem de clientes:
   - [ ] buscando pelo nome
   - [ ] buscando pela data da dívida a vencer

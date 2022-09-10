@@ -3,6 +3,7 @@ import addDays from 'date-fns/addDays'
 import addMonths from 'date-fns/addMonths'
 import endOfDay from 'date-fns/endOfDay'
 import isAfter from 'date-fns/isAfter'
+import isSameDay from 'date-fns/isSameDay'
 import isWeekend from 'date-fns/isWeekend'
 import isWithinInterval from 'date-fns/isWithinInterval'
 import lightFormat from 'date-fns/lightFormat'
@@ -42,10 +43,11 @@ export const isInstallmentInRange = (
   start: Date | null,
   end: Date | null
 ): boolean => {
+  const date = new Date(targetDate)
   if ((start == null) || (end == null)) return true
-  if (isAfter(start, end)) end = start
+  if (isAfter(start, end)) return isSameDay(date, start)
   return isWithinInterval(
-    new Date(targetDate),
+    date,
     { start: startOfDay(start), end: endOfDay(end) }
   )
 }

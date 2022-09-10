@@ -3,6 +3,8 @@ import { cleanup, render, screen } from '@testing-library/react'
 import { Divider } from '~/components'
 import React from 'react'
 
+afterEach(cleanup)
+
 describe('Divider', () => {
   test('without horizontal prop', async () => {
     render(<Divider />)

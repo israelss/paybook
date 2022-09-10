@@ -154,6 +154,27 @@ yarn start
 npx next start
 ```
 
+# 🧪 Testando o projeto
+## 1️⃣ Testes unitários
+
+Execute o comando:
+
+```bash
+npm run test:unit
+#ou
+yarn test:unit
+```
+
+### 📊 Cobertura
+
+Para ver a cobertura de código execute o comando:
+
+```bash
+npm run test:unit:coverage
+#ou
+yarn test:unit:coverage
+```
+
 # ⏭️ Próximos passos
 
 Com mais tempo eu teria implementado as seguintes funcionalidades, e é o que pretendo fazer em breve:

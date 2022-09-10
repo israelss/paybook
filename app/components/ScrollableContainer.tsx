@@ -1,4 +1,4 @@
-import { memo } from 'react'
+import React, { memo } from 'react'
 import Divider from './Divider'
 import type { PropsWithChildren } from 'react'
 

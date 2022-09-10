@@ -4,6 +4,7 @@ import {
   formatAsCurrency,
   normalizeValue
 } from '~/utils'
+import { describe, expect, test } from 'vitest'
 
 describe('extractFromCurrency', () => {
   test('a number string', () => {

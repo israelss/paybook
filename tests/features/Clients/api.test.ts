@@ -1,7 +1,7 @@
+import { afterEach, describe, expect, test, vi } from 'vitest'
 import { ClientsApi } from '~/features/Clients'
 import { db } from '~/utils/db.server'
 import { Mocks } from './mocks'
-import { vi } from 'vitest'
 
 describe('ClientsApi', () => {
   afterEach(() => {

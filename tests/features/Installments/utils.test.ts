@@ -1,5 +1,6 @@
-import { Mocks } from './mocks'
+import { describe, expect, test } from 'vitest'
 import { InstallmentsUtils } from '~/features/Installments'
+import { Mocks } from './mocks'
 
 describe('findInstallmentDate', () => {
   test('add zero months', () => {

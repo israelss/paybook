@@ -1,3 +1,4 @@
+import { describe, expect, test } from 'vitest'
 import { Mocks } from './mocks'
 import * as ClientsUtils from '~/features/Clients/utils'
 

@@ -1,5 +1,6 @@
+import { afterEach, describe, expect, test } from 'vitest'
+import { cleanup, render, screen } from '@testing-library/react'
 import { Divider } from '~/components'
-import { render, screen } from '@testing-library/react'
 import React from 'react'
 
 describe('Divider', () => {

@@ -65,7 +65,7 @@ Para este projeto foram utilizados:
 - Utilitários:
   - [ReactDatePicker](https://reactdatepicker.com/) para selecionar datas
   - [date-fns](https://date-fns.org/) para manipulação de datas
--Testes:
+- Testes:
   - [Vitest](https://vitest.dev/) para os testes unitários
   - [Playwright](https://playwright.dev/) para os testes e2e
 

@@ -65,6 +65,9 @@ Para este projeto foram utilizados:
 - Utilitários:
   - [ReactDatePicker](https://reactdatepicker.com/) para selecionar datas
   - [date-fns](https://date-fns.org/) para manipulação de datas
+-Testes:
+  - [Vitest](https://vitest.dev/) para os testes unitários
+  - [Playwright](https://playwright.dev/) para os testes e2e
 
 # 📋 Instruções
 
@@ -175,12 +178,29 @@ npm run test:unit:coverage
 yarn test:unit:coverage
 ```
 
+## ↔️ Testes e2e
+
+Execute os comandos:
+
+```bash
+npm run test:e2e
+#ou
+yarn test:e2e
+```
+
+Quando terminar de rodar os testes, você pode parar e remover o container de teste com o comando:
+```bash
+npm run docker:down
+#ou
+yarn docker:down
+```
+
 # ⏭️ Próximos passos
 
 Com mais tempo eu teria implementado as seguintes funcionalidades, e é o que pretendo fazer em breve:
 
 - [ ] Mais testes unitários
-- [ ] Testes e2e (utilizando [Playwright](https://playwright.dev/))
+- [ ] Mais testes e2e
 - [ ] Filtragem de clientes:
   - [ ] buscando pelo nome
   - [ ] buscando pela data da dívida a vencer

@@ -138,8 +138,6 @@ Inicie o servidor de desenvolvimento:
 npm run dev
 # ou
 yarn dev
-# ou
-npx next dev
 ```
 
 Abra [http://localhost:3000](http://localhost:3000).
@@ -153,8 +151,6 @@ Compile o projeto:
 npm run build
 # ou
 yarn build
-# ou
-npx next build
 ```
 
 Inicie o servidor compilado localmente:
@@ -163,8 +159,6 @@ Inicie o servidor compilado localmente:
 npm run start
 # ou
 yarn start
-# ou
-npx next start
 ```
 
 # 🧪 Testando o projeto

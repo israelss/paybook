@@ -110,12 +110,22 @@ npm run db:migrate
 yarn db:migrate
 ```
 
-Caso necessite recriar o banco, execute:
+## Caso necessite recriar o banco
+
+Para apenas recriar o banco, execute:
 ```bash
 #
 npm run db:reset
 # ou
 yarn db:reset
+```
+
+Para além de recriar o banco realizar o seed automaticamente, execute:
+```bash
+#
+npm run db:reset:seed
+# ou
+yarn db:reset:seed
 ```
 
 # ⚙️ Rodando o projeto

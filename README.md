@@ -205,6 +205,7 @@ Com mais tempo eu teria implementado as seguintes funcionalidades, e é o que pr
 
 - [ ] Mais testes unitários
 - [ ] Mais testes e2e
+- [ ] Tela de Login
 - [ ] Filtragem de clientes:
   - [ ] buscando pelo nome
   - [ ] buscando pela data da dívida a vencer

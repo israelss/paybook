@@ -101,10 +101,9 @@ _O segundo será atribuído a uma variável aleatória._
 
 _É necessário substituir **SHADOW_DATABASE_URL** com a variável definida automaticamente no Heroku para o segundo banco ou criar uma nova variável no Heroku (**SHADOW_DATABASE_URL**) que aponte para o segundo banco criado._
 
-Crie e popule o banco de dados:
+Crie e popule o banco de dados (_ambiente de produção_):
 
 ```bash
-#
 npm run db:migrate
 # ou
 yarn db:migrate
@@ -112,20 +111,11 @@ yarn db:migrate
 
 ## Caso necessite recriar o banco
 
-Para apenas recriar o banco, execute:
+Execute o comando:
 ```bash
-#
 npm run db:reset
 # ou
 yarn db:reset
-```
-
-Para além de recriar o banco realizar o seed automaticamente, execute:
-```bash
-#
-npm run db:reset:seed
-# ou
-yarn db:reset:seed
 ```
 
 # ⚙️ Rodando o projeto
@@ -138,6 +128,24 @@ Inicie o servidor de desenvolvimento:
 npm run dev
 # ou
 yarn dev
+```
+
+
+Crie e popule o banco de dados (_ambiente de desenvolvimento):
+
+```bash
+npm run db:migrate:dev
+# ou
+yarn db:migrate:dev
+```
+
+## Caso necessite recriar o banco
+
+Execute o comando:
+```bash
+npm run db:reset:dev
+# ou
+yarn db:reset:dev
 ```
 
 Abra [http://localhost:3000](http://localhost:3000).

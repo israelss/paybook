@@ -2,20 +2,21 @@
   "private": true,
   "sideEffects": false,
   "scripts": {
-    "db:reset": "npx prisma migrate reset --force --skip-seed",
-    "db:reset:seed": "npx prisma migrate reset --force",
+    "db:reset": "npx prisma migrate reset --force",
+    "db:reset:dev": "dotenv -e .env.development npx prisma migrate reset --force",
     "db:migrate": "npx prisma migrate dev",
+    "db:migrate:dev": "dotenv -e .env.development npx prisma migrate dev",
     "db:seed": "npx prisma db seed",
-    "lint:fix": "npx ts-standard --fix",
-    "test:unit": "npx vitest",
-    "test:unit:coverage": "npx vitest run --coverage",
     "docker:up": "docker compose up -d",
     "docker:down": "docker compose down",
-    "test:e2e": "npm run docker:up && dotenv -e .env.test npm run db:reset && npx playwright test",
+    "test:e2e": "npm run docker:up && dotenv -e .env.test npm run db:reset && dotenv -e .env.test npx playwright test",
+    "test:unit": "npx vitest",
+    "test:unit:coverage": "npx vitest run --coverage",
+    "lint:fix": "npx ts-standard --fix",
     "build": "run-s \"build:*\"",
     "build:css": "npm run generate:css -- --minify",
     "build:remix": "remix build",
-    "dev": "run-p \"dev:*\"",
+    "dev": "npm run docker:up && dotenv -e .env.development run-p \"dev:*\"",
     "dev:css": "npm run generate:css -- --watch",
     "dev:remix": "remix dev",
     "generate:css": "npx tailwindcss -i ./app/styles/tailwind.css -o ./app/tailwind.css",
@@ -65,7 +66,7 @@
     "node": ">=14"
   },
   "prisma": {
-    "seed": "node --require esbuild-register prisma/seed.ts"
+    "seed": "node --require esbuild-register prisma/seed"
   },
   "ts-standard": {
     "ignore": [

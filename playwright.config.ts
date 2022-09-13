@@ -11,7 +11,6 @@ import type { PlaywrightTestConfig } from '@playwright/test'
  * See https://playwright.dev/docs/test-configuration.
  */
 const config: PlaywrightTestConfig = {
-  globalSetup: require.resolve('./tests/e2e/globals/setup.ts'),
   globalTeardown: require.resolve('./tests/e2e/globals/teardown.ts'),
   testDir: './tests/e2e',
   /* Maximum time one test can run for. */

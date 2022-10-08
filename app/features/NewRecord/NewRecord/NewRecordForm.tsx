@@ -1,7 +1,8 @@
+import { clampMax, inputClasses, labelClasses, normalizeValue } from '~/utils'
 import { Form } from 'remix-forms'
-import { inputClasses, labelClasses, setCaretAtEnd } from '../utils'
 import { newRecordSchema } from '../schemas'
-import { clampMax, normalizeValue } from '~/utils'
+import { setCaretAtEnd } from '../utils'
+import { useLoaderData } from '@remix-run/react'
 import { useState } from 'react'
 import endOfToday from 'date-fns/endOfToday'
 import formatISO from 'date-fns/formatISO'
@@ -10,6 +11,7 @@ import ReactDatePicker from 'react-datepicker'
 const today = endOfToday()
 
 const NewRecordForm = (): JSX.Element => {
+  const { userId } = useLoaderData<{ userId: string }>()
   const [installmentValue, setInstallmentValue] = useState<string>('')
   const [dueDate, setDueDate] = useState<Date>(today)
   const [installments, setInstallments] = useState<number>(1)
@@ -21,6 +23,7 @@ const NewRecordForm = (): JSX.Element => {
     >
       {({ Field, Errors, Button, register, reset }) => (
         <>
+          <Field name='userId' type='hidden' value={userId} />
           <Field
             name='clientName'
             label='Cliente'
@@ -44,7 +47,7 @@ const NewRecordForm = (): JSX.Element => {
           </Field>
           <div className='grid grid-cols-2 gap-2'>
             <Field
-              name='installmentValue'
+              name='value'
               label='Valor a ser pago'
               className='form-control'
               placeholder='R$ 0,00'
@@ -59,7 +62,7 @@ const NewRecordForm = (): JSX.Element => {
                       </span>
                     </label>
                     <input
-                      {...register('installmentValue')}
+                      {...register('value')}
                       className={inputClasses(errors, 'text-end')}
                       onClick={setCaretAtEnd}
                       onFocus={setCaretAtEnd}

@@ -1,10 +1,8 @@
 import type { Installment } from '@prisma/client'
 import type { PropsWithChildren } from 'react'
 import type { SerializeFrom } from '@remix-run/node'
-
-export interface AllInstallmentsWithoutClientID {
-  installments: InstallmentWithoutClientID[]
-}
+import type { NewRecordSchemas } from '../NewRecord'
+import type { z } from 'zod'
 
 export interface InstallmentCardActionButtonProps extends PropsWithChildren {
   action: 'delete' | 'markAsPaid'
@@ -13,12 +11,19 @@ export interface InstallmentCardActionButtonProps extends PropsWithChildren {
 }
 
 export interface InstallmentCardProps {
-  installment: SerializedInstallment
+  installment: SerializeFrom<InstallmentWithoutIds>
 }
 
-export interface InstallmentWithoutClientID extends Omit<Installment, 'clientId'> {}
+export interface InstallmentWithoutIds extends Omit<Installment, 'clientId' | 'userId'> {}
 
-export interface InstallmentDateAndValue extends Pick<Installment, 'dueDate' |'value'> {}
-export interface SerializedInstallmentDateAndValue extends SerializeFrom<InstallmentDateAndValue> {}
+export interface InstallmentData {
+  data: z.infer<typeof NewRecordSchemas.newRecordSchema>
+  clientId: string
+}
 
-export interface SerializedInstallment extends SerializeFrom<InstallmentWithoutClientID> {}
+export interface IsFunctionReturn {
+  inRange: (start: Date | null, end: Date | null) => boolean
+  notPaidAndOfUser: (userId: string) => boolean
+}
+
+export interface SerializedInstallment extends SerializeFrom<Installment> {}

@@ -2,15 +2,20 @@ import { ClientsApi, ClientCard } from '~/features/Clients'
 import { json } from '@remix-run/node'
 import { memo } from 'react'
 import { Outlet, useLoaderData, useParams } from '@remix-run/react'
+import { requireUserData } from '~/utils/session.server'
 import { ScrollableContainer } from '~/components'
 import { useMobileQuery } from '~/hooks/useMobileQuery'
 import type { ClientsTypes } from '~/features/Clients'
 import type { LoaderFunction } from '@remix-run/node'
 
-export const loader: LoaderFunction = async () => json(await ClientsApi.getAll())
+export const loader: LoaderFunction = async ({ request }) => {
+  const { userId } = await requireUserData(request)
+  const clients = await ClientsApi.getAll(userId)
+  return json({ clients, userId })
+}
 
 const ClientsRoute = (): JSX.Element | null => {
-  const { clients } = useLoaderData<ClientsTypes.AllClients>()
+  const { clients } = useLoaderData<{ clients: ClientsTypes.ClientWithInstallments[] }>()
   const { id } = useParams()
   const isMobile = useMobileQuery()
 
@@ -34,8 +39,24 @@ const ClientsRoute = (): JSX.Element | null => {
           {
             clients.map((client) => (
               <li key={client.id} id={client.id}>
-                <ClientCard client={client} />
-                {isClientSelected.atMobile(client.id) ? <Outlet /> : null}
+                {
+                  isMobile === true
+                    ? (
+                      <details
+                        open={isClientSelected.atMobile(client.id)}
+                        onToggle={(e) => {
+                          const target = e.currentTarget
+                          if (!target.open) target.scrollIntoView()
+                        }}
+                      >
+                        <summary className='sticky top-0 list-none'>
+                          <ClientCard client={client} />
+                        </summary>
+                        {isClientSelected.atMobile(client.id) ? <Outlet /> : null}
+                      </details>
+                      )
+                    : <ClientCard client={client} />
+                }
               </li>
             ))
           }

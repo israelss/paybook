@@ -3,14 +3,21 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-  shadowDatabaseUrl = env("HEROKU_POSTGRESQL_ORANGE_URL")
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("HEROKU_POSTGRESQL_GREEN_URL")
+}
+
+model User {
+  id           String        @id @default(uuid())
+  email        String        @unique
+  passwordHash String
+  installments Installment[]
 }
 
 model Client {
-  id    String @id @default(uuid())
-  name  String @unique
+  id           String        @id @default(uuid())
+  name         String        @unique
   installments Installment[]
 }
 
@@ -19,6 +26,8 @@ model Installment {
   value       Int
   dueDate     DateTime
   paymentDate DateTime?
-  client      Client   @relation(fields: [clientId], references: [id])
+  client      Client    @relation(fields: [clientId], references: [id])
   clientId    String
+  user        User      @relation(fields: [userId], references: [id])
+  userId      String
 }

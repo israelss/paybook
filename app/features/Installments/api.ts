@@ -1,7 +1,7 @@
 import { ClientsApi } from '../Clients'
 import { db } from '~/utils/db.server'
-import type { AllInstallmentsWithoutClientID, InstallmentDateAndValue } from './types'
-import type { Prisma } from '@prisma/client'
+import type { Installment, Prisma } from '@prisma/client'
+import type { InstallmentWithoutIds } from './types'
 
 export const add = async (installmentsData: Prisma.Enumerable<Prisma.InstallmentCreateManyInput>): Promise<void> => {
   await db.installment.createMany({
@@ -9,28 +9,31 @@ export const add = async (installmentsData: Prisma.Enumerable<Prisma.Installment
   })
 }
 
-export const getInstallmentsDatesAndValues = async (): Promise<InstallmentDateAndValue[]> => {
-  const data = await db.installment.findMany({
+export const getInstallments = async (userId: string): Promise<Array<Pick<Installment, 'dueDate' | 'value' | 'userId'>>> => {
+  const installments = await db.installment.findMany({
     where: {
       AND: [
         {
+          userId,
           paymentDate: null
         }
       ]
     },
     select: {
       dueDate: true,
-      value: true
+      value: true,
+      userId: true
     }
   })
 
-  return data
+  return installments
 }
 
-export const getByClient = async (id: string): Promise<AllInstallmentsWithoutClientID> => {
+export const getByClient = async (id: string, userId: string): Promise<InstallmentWithoutIds[]> => {
   const installments = await db.installment.findMany({
     where: {
-      clientId: id
+      clientId: id,
+      userId
     },
     select: {
       id: true,
@@ -44,7 +47,10 @@ export const getByClient = async (id: string): Promise<AllInstallmentsWithoutCli
     ]
   })
 
-  return { installments }
+  // eslint-disable-next-line
+  if (installments.length === 0) throw new Error('No Installment Found')
+
+  return installments
 }
 
 export const markAsPaid = async (id: string): Promise<void> => {

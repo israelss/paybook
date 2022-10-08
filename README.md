@@ -1,6 +1,6 @@
 # 🚀 Sobre este projeto
 
-Esta é a minha solução para o teste técnico proposto para o processo seletivo da Softeo Tecnologia
+Este é um app que tem como objetivo auxiliar um prestador de serviços ou vendedor no controle das dívidas dos clientes, mostrando as parcelas já pagas, as parcelas a pagar, bem como o total a receber.
 
 Live Preview: [Heroku](https://paybook-softeo.herokuapp.com/)
 
@@ -19,11 +19,9 @@ O desafio foi implementar uma tela na nuvem com as seguintes funcionalidades:
 - [X] Total a receber dentro de um determinado período
 
 ## 💡 O que foi entregue
-_ℹ️ Observação ℹ️:_
-
-_Na minha solução, utilizei a nomenclatura **cliente**, em vez de **paciente**, por ser um termo mais genérico, possibilitando que a ferramenta possa ser utilizada não só por Érica, mas por todos que tenham a mesma necessidade que ela._
 
 Desenvolvi uma tela responsiva na nuvem (ver [deploy](https://paybook-softeo.herokuapp.com/)) com as seguintes funcionalidades:
+- [X] Tela de Login, o que possibilita múltiplos usuários
 - [X] Inserção de um valor total a ser divido, e o número de parcelas, sendo criadas automaticamente as entradas por cliente, com:
   - [X] Nome do cliente
     - [X] Se o cliente não existir na base de dados será criado
@@ -213,7 +211,6 @@ Com mais tempo eu teria implementado as seguintes funcionalidades, e é o que pr
 
 - [ ] Mais testes unitários
 - [ ] Mais testes e2e
-- [ ] Tela de Login
 - [ ] Filtragem de clientes:
   - [ ] buscando pelo nome
   - [ ] buscando pela data da dívida a vencer

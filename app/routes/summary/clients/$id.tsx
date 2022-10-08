@@ -10,6 +10,7 @@ import invariant from 'tiny-invariant'
 import type { ActionFunction, LoaderFunction } from '@remix-run/node'
 import type { InstallmentsTypes } from '~/features/Installments'
 import { ClientsApi } from '~/features/Clients'
+import NoInstallmentFound from '~/features/Installments/NoInstallmentFound'
 
 export const loader: LoaderFunction = async ({ params, request }) => {
   const { userId } = await requireUserData(request)
@@ -70,12 +71,8 @@ const SelectedClientRoute = (): JSX.Element => {
   )
 }
 
-export const ErrorBoundary = (): JSX.Element => {
-  return (
-    <div className='flex flex-col items-start justify-center text-center'>
-      <h2 className='mt-2 text-3xl'>Cliente não encontrado</h2>
-    </div>
-  )
-}
+export const ErrorBoundary = (): JSX.Element => <NoInstallmentFound />
+
+export const CatchBoundary = (): JSX.Element => <NoInstallmentFound />
 
 export default memo(SelectedClientRoute)

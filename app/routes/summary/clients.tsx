@@ -7,6 +7,7 @@ import { ScrollableContainer } from '~/components'
 import { useMobileQuery } from '~/hooks/useMobileQuery'
 import type { ClientsTypes } from '~/features/Clients'
 import type { LoaderFunction } from '@remix-run/node'
+import NoClientsFound from '~/features/Clients/NoClientsFound'
 
 export const loader: LoaderFunction = async ({ request }) => {
   const { userId } = await requireUserData(request)
@@ -67,12 +68,8 @@ const ClientsRoute = (): JSX.Element | null => {
   )
 }
 
-export const ErrorBoundary = (): JSX.Element => {
-  return (
-    <div className='flex flex-col items-start justify-center text-center'>
-      <h2 className='mt-2 text-3xl'>Nenhuma dívida encontrada.</h2>
-    </div>
-  )
-}
+export const ErrorBoundary = (): JSX.Element => <NoClientsFound />
+
+export const CatchBoundary = (): JSX.Element => <NoClientsFound />
 
 export default memo(ClientsRoute)

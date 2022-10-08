@@ -2,6 +2,7 @@ import { extractFromCurrency } from '~/utils'
 import { z } from 'zod'
 
 export const newRecordSchema = z.object({
+  userId: z.string(),
   dueDate: z
     .date({
       required_error: 'A data deve ser selecionada... ⚠️',
@@ -24,7 +25,7 @@ export const newRecordSchema = z.object({
     .min(1, {
       message: 'O nome do cliente deve ter pelo menos 1 letra 👀'
     }),
-  installmentValue: z
+  value: z
     .string({
       required_error: 'O valor deve ser preenchido... ⚠️'
     })

@@ -1,9 +1,16 @@
 import { db } from '~/utils/db.server'
 import { sortClientsByInstallments } from './utils'
-import type { AllClients } from './types'
+import type { ClientWithInstallments } from './types'
 
-export const getAll = async (): Promise<AllClients> => {
+export const getAll = async (userId: string): Promise<ClientWithInstallments[]> => {
   const clients = await db.client.findMany({
+    where: {
+      installments: {
+        some: {
+          userId
+        }
+      }
+    },
     include: {
       installments: {
         orderBy: [
@@ -14,9 +21,11 @@ export const getAll = async (): Promise<AllClients> => {
     }
   })
 
+  if (clients.length === 0) throw new Error('No Clients Found')
+
   clients.sort(sortClientsByInstallments)
 
-  return { clients }
+  return clients
 }
 
 export const getClientIdByName = async (name: string): Promise<string> => {

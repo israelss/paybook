@@ -9,17 +9,17 @@ import isWithinInterval from 'date-fns/isWithinInterval'
 import lightFormat from 'date-fns/lightFormat'
 import startOfDay from 'date-fns/startOfDay'
 import type { Prisma } from '@prisma/client'
-import type { SerializedInstallmentDateAndValue } from './types'
+import type { InstallmentData, IsFunctionReturn, SerializedInstallment } from './types'
 
-const installmentsValuesReducer = (sum: number, current: number): number => sum + current
+const valuesReducer = (sum: number, current: number): number => sum + current
 
-export const findInstallmentDate = (baseDate: Date, monthsToAdd: number): Date => {
+const findInstallmentDate = (baseDate: Date, monthsToAdd: number): Date => {
   let date = endOfDay(addMonths(baseDate, monthsToAdd))
   while (isWeekend(date)) date = addDays(date, 1)
   return date
 }
 
-export const findInstallmentsValues = (value: string, numberOfInstallments: number): number[] => {
+const split = (value: string, numberOfInstallments: number): number[] => {
   const totalValue = extractFromCurrency(value)
   const installmentValue = Math.floor(totalValue / numberOfInstallments)
   const remainderValue = totalValue - (installmentValue * numberOfInstallments)
@@ -38,35 +38,37 @@ export const formatDate = (date: string): string => {
   return lightFormat(new Date(date), 'dd/MM/yyyy')
 }
 
-export const isInstallmentInRange = (
-  targetDate: string,
-  start: Date | null,
-  end: Date | null
-): boolean => {
-  const date = new Date(targetDate)
-  if ((start == null) || (end == null)) return true
-  if (isAfter(start, end)) return isSameDay(date, start)
-  return isWithinInterval(
-    date,
-    { start: startOfDay(start), end: endOfDay(end) }
-  )
-}
+export const is = (installment: SerializedInstallment): IsFunctionReturn => ({
+  inRange: (start, end) => {
+    const date = new Date(installment.dueDate)
+    if ((start == null) || (end == null)) return true
+    if (isAfter(start, end)) return isSameDay(date, start)
+    return isWithinInterval(
+      date,
+      { start: startOfDay(start), end: endOfDay(end) }
+    )
+  },
+  notPaidAndOfUser: (userId) => {
+    const notPaid = installment.paymentDate === null
+    const sameUser = installment.userId === userId
+    return notPaid && sameUser
+  }
+})
 
-export const makeInstallmentsData = (
-  baseDate: Date,
-  clientId: string,
-  installments: number[]
-): Prisma.Enumerable<Prisma.InstallmentCreateManyInput> => {
+export const makeInputData = ({ data, clientId }: InstallmentData): Prisma.Enumerable<Prisma.InstallmentCreateManyInput> => {
+  const installments = split(data.value, data.installments)
+
   return installments
     .map((installmentValue, installmentIndex) => ({
       value: installmentValue,
-      dueDate: findInstallmentDate(baseDate, installmentIndex),
-      clientId
+      dueDate: findInstallmentDate(data.dueDate, installmentIndex),
+      clientId,
+      userId: data.userId
     }))
 }
 
-export const sumInstallmentsValues = (installments: SerializedInstallmentDateAndValue[]): number => {
+export const sumValues = (installments: SerializedInstallment[]): number => {
   return installments
     .map(installment => installment.value)
-    .reduce(installmentsValuesReducer, 0)
+    .reduce(valuesReducer, 0)
 }

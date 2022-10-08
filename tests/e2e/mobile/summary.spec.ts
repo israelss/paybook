@@ -2,6 +2,16 @@ import { test, expect } from '@playwright/test'
 
 test.describe('on mobile', () => {
   test.beforeEach(async ({ page }) => {
+    await page.goto('http://localhost:3000/login')
+    const emailField = page.locator('[placeholder="seu\\@email\\.com"]')
+    await emailField.fill('test@email.com')
+    const passwordField = page.locator('input[name="password"]')
+    await passwordField.fill('testuserpassword')
+    await page.locator('text=Login / Cadastro').click()
+    await page.waitForURL('http://localhost:3000/summary', { waitUntil: 'networkidle' })
+  })
+
+  test.beforeEach(async ({ page }) => {
     await page.goto('/')
     await page.waitForURL('/summary', { waitUntil: 'networkidle' })
   })
@@ -82,7 +92,7 @@ test.describe('on mobile', () => {
         await expect(newRecordSectionForm).toBeVisible()
         const nameInput = newRecordSectionForm.locator('input[name="clientName"]')
         await expect(nameInput).toBeVisible()
-        const valueInput = newRecordSectionForm.locator('input[name="installmentValue"]')
+        const valueInput = newRecordSectionForm.locator('input[name="value"]')
         await expect(valueInput).toBeVisible()
         const dateInput = newRecordSectionForm.locator('input[name="dueDate"]')
         await expect(dateInput).toBeHidden()

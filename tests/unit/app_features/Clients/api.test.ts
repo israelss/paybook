@@ -13,15 +13,13 @@ describe('ClientsApi', () => {
       db.client.findMany = vi
         .fn()
         .mockResolvedValue(Mocks.Clients.allClients)
-      const actual = await ClientsApi.getAll()
-      const expected = {
-        clients: [
-          Mocks.Clients.clientB,
-          Mocks.Clients.clientC,
-          Mocks.Clients.clientA,
-          Mocks.Clients.clientD
-        ]
-      }
+      const actual = await ClientsApi.getAll('user1')
+      const expected = [
+        Mocks.Clients.clientB,
+        Mocks.Clients.clientC,
+        Mocks.Clients.clientA,
+        Mocks.Clients.clientD
+      ]
 
       expect(actual).toStrictEqual(expected)
     })

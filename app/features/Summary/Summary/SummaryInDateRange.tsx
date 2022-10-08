@@ -2,23 +2,29 @@ import { CalendarIcon } from '@heroicons/react/24/outline'
 import { createRef, memo, useState } from 'react'
 import { InstallmentsUtils } from '~/features/Installments'
 import { MonetaryValueDisplay } from '~/components'
+import { useLoaderData } from '@remix-run/react'
 import endOfToday from 'date-fns/endOfToday'
 import ReactDatePicker from 'react-datepicker'
 import startOfToday from 'date-fns/startOfToday'
-import type { SummaryInDateRangeProps } from '../types'
+import type { InstallmentsTypes } from '~/features/Installments'
 
 const todayStart = startOfToday()
 const todayEnd = endOfToday()
 
-const SummaryInDateRange = ({ data }: SummaryInDateRangeProps): JSX.Element => {
+const SummaryInDateRange = (): JSX.Element => {
+  const { data } = useLoaderData<{ data: InstallmentsTypes.SerializedInstallment[] }>()
   const rangePickerRef = createRef<ReactDatePicker<never, true>>()
   const [dateRange, setDateRange] = useState<Array<Date | null>>([todayStart, todayEnd])
 
   const [startDate, endDate] = dateRange
 
-  const installmentInDateRangeValue = InstallmentsUtils.sumInstallmentsValues(
-    data.filter((installment) => InstallmentsUtils.isInstallmentInRange(installment.dueDate, startDate, endDate))
-  )
+  const installmentsInDateRange = data
+    .filter((installment) => InstallmentsUtils
+      .is(installment)
+      .inRange(startDate, endDate)
+    )
+
+  const totalValue = InstallmentsUtils.sumValues(installmentsInDateRange)
 
   const handleCalendarClose = (): void => {
     if (endDate === null) setDateRange([startDate, startDate])
@@ -47,7 +53,7 @@ const SummaryInDateRange = ({ data }: SummaryInDateRangeProps): JSX.Element => {
         <CalendarIcon className='w-6 h-6 text-info' onClick={openDatePicker} />
       </div>
       <div className='w-1/2 mx-auto'>
-        <MonetaryValueDisplay value={installmentInDateRangeValue} />
+        <MonetaryValueDisplay value={totalValue} />
       </div>
     </div>
   )

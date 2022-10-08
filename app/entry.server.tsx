@@ -1,8 +1,9 @@
 import { PassThrough } from 'stream'
-import type { EntryContext } from '@remix-run/node'
-import { Response } from '@remix-run/node'
+import { redirectDestroy, requireUserData } from './utils/session.server'
 import { RemixServer } from '@remix-run/react'
 import { renderToPipeableStream } from 'react-dom/server'
+import { Response } from '@remix-run/node'
+import type { EntryContext, TypedResponse } from '@remix-run/node'
 
 const ABORT_DELAY = 5000
 
@@ -11,7 +12,10 @@ export default async function handleRequest (
   responseStatusCode: number,
   responseHeaders: Headers,
   remixContext: EntryContext
-): Promise<Response> {
+): Promise<Response | TypedResponse> {
+  const { userId } = await requireUserData(request)
+  if (!request.url.endsWith('/login') && userId === undefined) return await redirectDestroy(request, '/login')
+
   return await new Promise((resolve, reject) => {
     let didError = false
 

@@ -8,13 +8,13 @@ describe('InstallmentsApi', () => {
     vi.restoreAllMocks()
   })
 
-  describe('getInstallmentsDatesAndValues', () => {
+  describe('getInstallments', () => {
     test('returns dates and values of installments', async () => {
       db.installment.findMany = vi
         .fn()
-        .mockResolvedValue(Mocks.Installments.twoInstallmentsData)
-      const actual = await InstallmentsApi.getInstallmentsDatesAndValues()
-      const expected = Mocks.Installments.twoInstallmentsData
+        .mockResolvedValue(Mocks.Installments.twoInstallments.data)
+      const actual = await InstallmentsApi.getInstallments('user1')
+      const expected = Mocks.Installments.twoInstallments.data
       expect(actual).toStrictEqual(expected)
     })
   })
@@ -23,9 +23,9 @@ describe('InstallmentsApi', () => {
     test('returns installments of existent client', async () => {
       db.installment.findMany = vi
         .fn()
-        .mockResolvedValue(Mocks.Installments.clientAInstallments)
-      const actual = await InstallmentsApi.getByClient('clientAId')
-      const expected = { installments: Mocks.Installments.clientAInstallments }
+        .mockResolvedValue(Mocks.Installments.oneInstallment.data)
+      const actual = await InstallmentsApi.getByClient('clientAId', 'user1')
+      const expected = Mocks.Installments.oneInstallment.data
       expect(actual).toStrictEqual(expected)
     })
 
@@ -33,9 +33,7 @@ describe('InstallmentsApi', () => {
       db.installment.findMany = vi
         .fn()
         .mockResolvedValue([])
-      const actual = await InstallmentsApi.getByClient('clientXId')
-      const expected = { installments: [] }
-      expect(actual).toStrictEqual(expected)
+      await expect(InstallmentsApi.getByClient('clientXId', 'user1')).rejects.toThrow('No Installment Found')
     })
   })
 
@@ -43,16 +41,36 @@ describe('InstallmentsApi', () => {
     test('remove non last installment', async () => {
       db.installment.delete = vi
         .fn()
-        .mockResolvedValue(Mocks.Installments.clientWithInstallmentRemoved)
+        .mockImplementationOnce((value: string) => {
+          return {
+            client: {
+              installments: Mocks
+                .Installments
+                .twoInstallments
+                .data
+                .filter(item => item.id !== value)
+            }
+          }
+        })
       const actual = await InstallmentsApi.remove('installment2')
       const expected = false
       expect(actual).toStrictEqual(expected)
     })
 
-    test('remove non last installment', async () => {
+    test('remove last installment', async () => {
       db.installment.delete = vi
         .fn()
-        .mockResolvedValue(Mocks.Installments.clientWithLastInstallmentRemoved)
+        .mockImplementationOnce((value: string) => {
+          return {
+            client: {
+              installments: Mocks
+                .Installments
+                .oneInstallment
+                .data
+                .filter(item => item.id !== value)
+            }
+          }
+        })
       db.client.delete = vi.fn()
       const actual = await InstallmentsApi.remove('installment1')
       const expected = true

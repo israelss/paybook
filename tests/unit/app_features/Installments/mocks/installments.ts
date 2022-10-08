@@ -1,49 +1,84 @@
-import { baseDate } from './dates'
+import { baseDate, sunday, monday, datePlusOneMonth, datePlusTwoMonths } from './dates'
 
 export const totalValue = 'R$ 100,00'
 
-export const oneInstallment = 1
-export const oneInstallmentArray = [10000]
+export const sundayInstallment = {
+  id: 'installment1',
+  clientId: 'clientAId',
+  dueDate: sunday.toISOString(),
+  paymentDate: null,
+  value: 10000,
+  userId: 'user1'
+}
 
-export const evenInstallments = 2
-export const equalInstallmentsArray = [5000, 5000]
+export const baseInstallment = {
+  id: 'installment1',
+  clientId: 'clientAId',
+  dueDate: baseDate.toISOString(),
+  paymentDate: null,
+  value: 10000,
+  userId: 'user1'
+}
 
-export const oddInstallments = 3
-export const unequalInstallmentsArray = [3333, 3333, 3334]
+export const mondayInstallment = {
+  id: 'installment1',
+  clientId: 'clientAId',
+  dueDate: monday.toISOString(),
+  paymentDate: null,
+  value: 10000,
+  userId: 'user1'
+}
 
-export const oneInstallmentSum = 10000
-export const oneInstallmentData = [
-  {
-    value: oneInstallmentArray[0],
-    dueDate: JSON.stringify(baseDate)
-  }
-]
+export const oneInstallment = {
+  data: [baseInstallment],
+  installmentsArray: [10000],
+  numberOfInstallments: 1,
+  sum: 10000
+}
 
-export const twoInstallmentsSum = 10000
-export const twoInstallmentsData = [
-  {
-    value: equalInstallmentsArray[0],
-    dueDate: JSON.stringify(baseDate)
-  },
-  {
-    value: equalInstallmentsArray[1],
-    dueDate: JSON.stringify(baseDate)
-  }
-]
+export const twoInstallments = {
+  data: [
+    {
+      ...baseInstallment,
+      value: 5000
+    },
+    {
+      ...baseInstallment,
+      dueDate: datePlusOneMonth.toISOString(),
+      value: 5000
+    }
+  ],
+  installmentsArray: [5000, 5000],
+  numberOfInstallments: 2,
+  sum: 10000
+}
 
-export const clientAInstallments = [
-  {
-    dueDate: new Date(),
-    value: 10000,
-    id: 'installment1',
-    paymentDate: null
-  }
-]
+export const threeInstallments = {
+  data: [
+    {
+      ...baseInstallment,
+      value: 3333
+    },
+    {
+      ...baseInstallment,
+      dueDate: datePlusOneMonth.toISOString(),
+      value: 3333
+    },
+    {
+      ...baseInstallment,
+      dueDate: datePlusTwoMonths.toISOString(),
+      value: 3334
+    }
+  ],
+  installmentsArray: [3333, 3333, 3334],
+  numberOfInstallments: 3,
+  sum: 10000
+}
 
 export const clientWithInstallmentRemoved = {
   client: {
     id: 'clientAId',
-    installments: clientAInstallments
+    installments: oneInstallment.data
   }
 }
 

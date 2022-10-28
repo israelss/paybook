@@ -2,7 +2,9 @@
 
 Este é um app que tem como objetivo auxiliar um prestador de serviços ou vendedor no controle das dívidas dos clientes, mostrando as parcelas já pagas, as parcelas a pagar, bem como o total a receber.
 
-Live Preview: [Heroku](https://paybook-softeo.herokuapp.com/)
+## Live Preview
+- [Vercel](https://paybook.vercel.app/)
+- [Heroku](https://paybook-softeo.herokuapp.com/)
 
 # 🧠 Contexto
 
@@ -20,7 +22,7 @@ O desafio foi implementar uma tela na nuvem com as seguintes funcionalidades:
 
 ## 💡 O que foi entregue
 
-Desenvolvi uma tela responsiva na nuvem (ver [deploy](https://paybook-softeo.herokuapp.com/)) com as seguintes funcionalidades:
+Desenvolvi uma tela responsiva na nuvem (ver [deploy mais recente](https://paybook.vercel.app/)) com as seguintes funcionalidades:
 - [X] Tela de Login, o que possibilita múltiplos usuários
 - [X] Inserção de um valor total a ser divido, e o número de parcelas, sendo criadas automaticamente as entradas por cliente, com:
   - [X] Nome do cliente
@@ -50,11 +52,14 @@ Para este projeto foram utilizados:
     - [Remix Domains](https://github.com/SeasonedSoftware/remix-domains)
     - [React Hook Form](https://react-hook-form.com/)
 - Banco de dados:
-  - [PostgreSQL](https://www.postgresql.org/) ([na plataforma Heroku](https://www.heroku.com/postgres))
+  - [PostgreSQL](https://www.postgresql.org/)
+    - [na plataforma Supabase](https://supabase.com/)
+    - [ou na plataforma Heroku](https://www.heroku.com/postgres)
   - [Prisma](https://www.prisma.io/) como ORM
   - [Faker](https://fakerjs.dev/), para gerar dados para popular o banco de dados
   - [esbuild-register](https://github.com/egoist/esbuild-register) para rodar o arquivo de seed, em desenvolvimento
 - Deploy:
+  - [Vercel](https://vercel.com/)
   - [Heroku](https://heroku.com/)
 - Estilização:
   - [TailwindCSS](https://tailwindcss.com/)
@@ -86,6 +91,7 @@ yarn
 Preencha o arquivo `.env` com as variáveis necessárias:
 ```sh
 DATABASE_URL=postgresql://USER:PASSWORD@HOST:PORT/DATABASE1?schema=public
+# Caso utilize o Postgres do Heroku em vez do Supabase, insira também a variável SHADOW_DATABASE_URL:
 SHADOW_DATABASE_URL=postgresql://USER:PASSWORD@HOST:PORT/DATABASE2?schema=public
 ```
 
